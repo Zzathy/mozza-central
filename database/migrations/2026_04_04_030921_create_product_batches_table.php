@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_batches', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('stock_entry_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->index()->constrained();
             $table->integer('initial_qty')->default(0);
             $table->integer('remaining_qty')->default(0);

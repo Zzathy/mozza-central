@@ -9,4 +9,9 @@ class ProductBatch extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductBatchFactory> */
     use HasFactory;
+
+    public function stockEntry()
+    {
+        return $this->belongsTo(StockEntry::class);
+    }
 }
