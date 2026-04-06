@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number')->unique();
+            $table->enum('business_unit', ['aquatic', 'garden'])->default('aquatic');
+            $table->enum('type', ['daily', 'project'])->default('daily');
             $table->decimal('total_amount', 15, 2);
             $table->decimal('discount', 15, 2)->default(0);
             $table->decimal('final_amount', 15, 2);

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->decimal('cost_price', 15, 2)->default(0);
             $table->decimal('price', 15, 2)->default(0);
-            $table->enum('rounding_type', ['none', 'nearest_500', 'nearest_5000'])->default('none');
             $table->integer('min_stock')->default(1);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
