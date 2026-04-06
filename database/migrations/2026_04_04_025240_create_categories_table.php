@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->enum('type', ['aquatic', 'garden', 'service'])->default('article');
+            $table->enum('type', ['aquatic', 'garden', 'service'])->default('aquatic');
             $table->timestamps();
         });
     }
