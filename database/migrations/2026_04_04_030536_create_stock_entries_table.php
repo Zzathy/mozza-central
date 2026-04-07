@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('supplier_name')->nullable();
             $table->date('entry_date')->useCurrent();
             $table->text('notes')->nullable();
+            $table->decimal('total_amount', 15, 2)->default(0);
+            $table->decimal('discount', 15, 2)->default(0);
+            $table->decimal('final_amount', 15, 2)->default(0);
             $table->timestamps();
         });
     }
