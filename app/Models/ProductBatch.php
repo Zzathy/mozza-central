@@ -19,6 +19,22 @@ class ProductBatch extends Model
     /** @use HasFactory<\Database\Factories\ProductBatchFactory> */
     use HasFactory;
 
+    protected static function booted()
+    {
+        static::creating(function ($batch) {
+            if (is_null($batch->remaining_qty)) {
+                $batch->remaining_qty = $batch->initial_qty;
+            }
+        });
+
+            static::updating(function ($batch) {
+            if ($batch->isDirty('initial_qty')) {
+                $selisih = $batch->initial_qty - $batch->getOriginal('initial_qty');
+                $batch->remaining_qty += $selisih;
+            }
+        });
+    }
+
     public function stockEntry(): BelongsTo
     {
         return $this->belongsTo(StockEntry::class);

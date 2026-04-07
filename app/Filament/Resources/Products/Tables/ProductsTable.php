@@ -34,12 +34,17 @@ class ProductsTable
                 TextColumn::make('price_note')
                     ->label('Catatan/Promo')
                     ->placeholder('-'),
-                TextColumn::make('min_stock')
-                    ->label('Stok Minimal')
-                    ->numeric()
-                    ->alignCenter(),
+                TextColumn::make('total_stock')
+                    ->label('Stok')
+                    ->suffix(' ekor/pcs')
+                    ->color(fn ($record) => $record->total_stock <= $record->min_stock ? 'danger' : 'success')
+                    ->sortable(query: function ($query, $direction) {
+                        return $query->withSum('productBatches as total_stock', 'remaining_qty')
+                                    ->orderBy('total_stock', $direction);
+                    }),
                 IconColumn::make('is_active')
                     ->label('Status')
+                    ->boolean()
                     ->alignCenter(),
                 TextColumn::make('created_at')
                     ->dateTime()

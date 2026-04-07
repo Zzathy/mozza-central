@@ -63,7 +63,6 @@ class StockEntryForm
                                     ->required()
                                     ->default(1)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn ($state, Set $set) => $set('remaining_qty', $state))
                                     ->columnSpan(1),
                                 TextInput::make('buy_price')
                                     ->label('Harga Per Item')
@@ -74,7 +73,7 @@ class StockEntryForm
                                     ->columnSpan(1),
                                 TextInput::make('remaining_qty')
                                     ->hidden()
-                                    ->dehydrated(),
+                                    ->dehydrated(false),
                             ])
                             ->columns(4)
                             ->defaultItems(1)
@@ -94,7 +93,7 @@ class StockEntryForm
 
                                 $set('total_amount', $total);
                                 
-                                $discount = (float) $get('discount');
+                                $discount = (float) $get('discount') ?? 0;
                                 $set('final_amount', $total - $discount);
                             }),
                     ]),
